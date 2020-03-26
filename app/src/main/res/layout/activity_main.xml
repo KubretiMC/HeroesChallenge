@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/ChooseHero"
+        android:id="@+id/ChooseHeroButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -18,20 +18,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/CreateHero"
+        android:id="@+id/CreateHeroButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/create_hero"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ChooseHero" />
+        app:layout_constraintTop_toBottomOf="@+id/ChooseHeroButton" />
 
     <Button
-        android:id="@+id/HighScore"
+        android:id="@+id/HighScoreButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/high_scrore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CreateHero" />
+        app:layout_constraintTop_toBottomOf="@+id/CreateHeroButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

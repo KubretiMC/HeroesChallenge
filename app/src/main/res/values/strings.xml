@@ -3,4 +3,5 @@
     <string name="choose_hero">Choose Hero</string>
     <string name="create_hero">Create Hero</string>
     <string name="high_scrore">High Scrore</string>
+    <string name="hero_name">Hero name:</string>
 </resources>

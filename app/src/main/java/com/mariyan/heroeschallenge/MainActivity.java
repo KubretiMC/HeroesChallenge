@@ -9,50 +9,50 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button ChooseHero;
-    private Button CreateHero;
-    private Button HighScore;
+    private Button chooseHero;
+    private Button createHero;
+    private Button highScore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ChooseHero = findViewById(R.id.ChooseHero);
-        ChooseHero.setOnClickListener(new View.OnClickListener(){
+        chooseHero = findViewById(R.id.ChooseHeroButton);
+        chooseHero.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                OpenChooseHeroActivity();
+                openChooseHeroActivity();
             }
         });
 
-        CreateHero = findViewById(R.id.CreateHero);
-        CreateHero.setOnClickListener(new View.OnClickListener() {
+        createHero = findViewById(R.id.CreateHeroButton);
+        createHero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OpenCreateHeroActivity();
+                openCreateHeroActivity();
             }
         });
 
-        HighScore = findViewById(R.id.HighScore);
-        HighScore.setOnClickListener(new View.OnClickListener() {
+        highScore = findViewById(R.id.HighScoreButton);
+        highScore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OpenHighScoreActivity();
+                openHighScoreActivity();
             }
         });
     }
 
-    private void OpenChooseHeroActivity(){
+    private void openChooseHeroActivity(){
         Intent intent = new Intent(this, ChooseHeroActivity.class);
         startActivity(intent);
     }
 
-    private void OpenCreateHeroActivity(){
+    private void openCreateHeroActivity(){
         Intent intent = new Intent(this, CreateHeroActivity.class);
         startActivity(intent);
     }
 
-    private void OpenHighScoreActivity(){
+    private void openHighScoreActivity(){
         Intent intent = new Intent(this, HighScoreActivity.class);
         startActivity(intent);
     }
