@@ -7,14 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".ChooseHeroActivity">
 
+    <ListView
+        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:id="@+id/simpleListView"
+        android:dividerHeight="1dp"
+        android:divider="@color/colorPrimaryDark"
+        android:choiceMode="singleChoice"
+        android:listSelector="#666666"
+        tools:ignore="MissingConstraints" />
+
+
     <Button
-        android:id="@+id/ChooseHero"
-        android:layout_width="300dp"
+        android:id="@+id/ChooseButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
         android:text="@string/choose_hero"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/simpleListView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
