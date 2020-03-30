@@ -35,26 +35,19 @@ public class CreateHeroActivity extends AppCompatActivity {
 
     private void createHero() {
         heroName = findViewById(R.id.heroNamePlainText);
-        try {
-            SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
-            String q = "CREATE TABLE if not exists geroiOpit1(";
-            q += "ID integer primary key AUTOINCREMENT, ";
-            q += "name text unique not null, ";
-            q += "attack integer not null, ";
-            q += "hitPoints integer not null, ";
-            q += "status integer not null);";
-            db.execSQL(q);
-            String name = heroName.getText().toString().trim();
+        String name = heroName.getText().toString().trim();
 
-            if (name.isEmpty()) {
-                Toast.makeText(getApplicationContext(), "Empty field", Toast.LENGTH_LONG).show();
-                Notification notify = new Notification.Builder(getApplicationContext())
-                        .setContentTitle("Empty field!")
-                        .setContentText(name)
-                        .build();
-                notify.flags |= Notification.FLAG_AUTO_CANCEL;
-            } else {
-                q = "SELECT name FROM geroiOpit1 where name = '"+name+"'";
+        if (name.isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Empty field", Toast.LENGTH_LONG).show();
+            Notification notify = new Notification.Builder(getApplicationContext())
+                    .setContentTitle("Empty field!")
+                    .setContentText(name)
+                    .build();
+            notify.flags |= Notification.FLAG_AUTO_CANCEL;
+        } else {
+            try {
+                SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
+                String q = "SELECT name FROM geroiOpit1 where name = '" + name + "'";
                 Cursor cursor = db.rawQuery(q, null);
                 if (cursor.getCount() <= 0) {
                     cursor.close();
@@ -71,8 +64,7 @@ public class CreateHeroActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     cursor.close();
                     Toast.makeText(getApplicationContext(), "Hero name taken!", Toast.LENGTH_LONG).show();
                     Notification notify = new Notification.Builder(getApplicationContext())
@@ -81,17 +73,18 @@ public class CreateHeroActivity extends AppCompatActivity {
                             .build();
                     notify.flags |= Notification.FLAG_AUTO_CANCEL;
                 }
+
+            } catch (SQLiteException e) {
+                Notification notify = new Notification.Builder(getApplicationContext())
+                        .setContentTitle("Error while working with database!")
+                        .build();
+                notify.flags |= Notification.FLAG_AUTO_CANCEL;
+            } catch (Exception e) {
+                Notification notify = new Notification.Builder(getApplicationContext())
+                        .setContentTitle("Error while working with database!")
+                        .build();
+                notify.flags |= Notification.FLAG_AUTO_CANCEL;
             }
-        } catch (SQLiteException e) {
-            Notification notify = new Notification.Builder(getApplicationContext())
-                    .setContentTitle("Error while working with database!")
-                    .build();
-            notify.flags |= Notification.FLAG_AUTO_CANCEL;
-        } catch (Exception e) {
-            Notification notify = new Notification.Builder(getApplicationContext())
-                    .setContentTitle("Error while working with database!")
-                    .build();
-            notify.flags |= Notification.FLAG_AUTO_CANCEL;
         }
     }
 }
