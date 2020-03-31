@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
 
 public class CreateHeroActivity extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class CreateHeroActivity extends AppCompatActivity {
 
         create = findViewById(R.id.CreateButton);
         create.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 createHero();
@@ -33,7 +38,11 @@ public class CreateHeroActivity extends AppCompatActivity {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void createHero() {
+        //ArrayList<Hero> heroes = getIntent().getParcelableArrayListExtra("123");
+
+
         heroName = findViewById(R.id.heroNamePlainText);
         String name = heroName.getText().toString().trim();
 
@@ -45,45 +54,43 @@ public class CreateHeroActivity extends AppCompatActivity {
                     .build();
             notify.flags |= Notification.FLAG_AUTO_CANCEL;
         } else {
-            try {
-                SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
-                String q = "SELECT name FROM geroiOpit1 where name = '" + name + "'";
-                Cursor cursor = db.rawQuery(q, null);
-                if (cursor.getCount() <= 0) {
-                    cursor.close();
-
-                    q = "INSERT INTO geroiOpit1(name,attack,hitPoints,status) VALUES(?, ?, ?, ?);";
-                    db.execSQL(q, new Object[]{name, 1, 5, 1});
-                    db.close();
+            boolean flag = false;
+            for (Hero hero : Hero.list) {
+                if (hero.getName().equals(name)) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (flag == true) {
+                Toast.makeText(getApplicationContext(), "Hero name taken!", Toast.LENGTH_LONG).show();
+                Notification notify = new Notification.Builder(getApplicationContext())
+                        .setContentTitle("Hero name taken!")
+                        .setContentText(name)
+                        .build();
+                notify.flags |= Notification.FLAG_AUTO_CANCEL;
+            } else {
+                try {
+                    Integer id = Integer.valueOf(Hero.list.size())+1;
+                    Hero hero = new Hero(id, name, 1, 5, 1);
+                    Hero.list.add(hero);
                     Toast.makeText(getApplicationContext(), "Hero created successful!", Toast.LENGTH_LONG).show();
                     Notification notify = new Notification.Builder(getApplicationContext())
-                            .setContentTitle("Task added successful")
+                            .setContentTitle("Hero created successful")
                             .setContentText(name)
                             .build();
                     notify.flags |= Notification.FLAG_AUTO_CANCEL;
-
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    cursor.close();
-                    Toast.makeText(getApplicationContext(), "Hero name taken!", Toast.LENGTH_LONG).show();
+                    finish();
+                } catch (SQLiteException e) {
                     Notification notify = new Notification.Builder(getApplicationContext())
-                            .setContentTitle("Hero name taken!")
-                            .setContentText(name)
+                            .setContentTitle("Error while working with database!")
+                            .build();
+                    notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                } catch (Exception e) {
+                    Notification notify = new Notification.Builder(getApplicationContext())
+                            .setContentTitle("Error while working with database!")
                             .build();
                     notify.flags |= Notification.FLAG_AUTO_CANCEL;
                 }
-
-            } catch (SQLiteException e) {
-                Notification notify = new Notification.Builder(getApplicationContext())
-                        .setContentTitle("Error while working with database!")
-                        .build();
-                notify.flags |= Notification.FLAG_AUTO_CANCEL;
-            } catch (Exception e) {
-                Notification notify = new Notification.Builder(getApplicationContext())
-                        .setContentTitle("Error while working with database!")
-                        .build();
-                notify.flags |= Notification.FLAG_AUTO_CANCEL;
             }
         }
     }

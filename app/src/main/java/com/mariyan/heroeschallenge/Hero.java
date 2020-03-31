@@ -3,12 +3,15 @@ package com.mariyan.heroeschallenge;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+
 public class Hero implements Parcelable {
     private Integer id;
     private String name;
     private Integer attack;
     private Integer hitPoints;
     private Integer status;
+    public static ArrayList<Hero> list = new ArrayList<Hero>();
 
     public Hero(int id, String name, Integer attack, Integer hitPoints, Integer status){
         this.id = id;

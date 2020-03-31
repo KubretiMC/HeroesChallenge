@@ -1,8 +1,11 @@
 package com.mariyan.heroeschallenge;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -50,9 +53,47 @@ public class MainActivity extends AppCompatActivity {
         TakeHeroesFromSQL();
     }
 
-    private void openChooseHeroActivity() {
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+
         String q;
-        ArrayList<Hero> heroes = new ArrayList<Hero>();
+        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
+        db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
+        long count =  DatabaseUtils.queryNumEntries(db, "geroiOpit1");
+        int count2 = Integer.valueOf((int) count);
+        if(Hero.list.size()>count) {
+            for(int i=count2;i<Hero.list.size();i++) {
+                q = "INSERT INTO geroiOpit1(name,attack,hitPoints,status) VALUES(?,?,?,?);";
+                db.execSQL(q, new Object[]{Hero.list.get(i).getName(), Hero.list.get(i).getAttack(), Hero.list.get(i).getHitPoints(), Hero.list.get(i).getStatus()});
+            }
+        }
+        db.close();
+    }
+
+    private void openChooseHeroActivity() {
+
+
+        Intent intent=new Intent(getApplicationContext(),ChooseHeroActivity.class);
+       // intent.putExtras(TakeHeroesFromSQL());
+        startActivity(intent);
+    }
+
+    private void openCreateHeroActivity() {
+        Intent intent = new Intent(this, CreateHeroActivity.class);
+        //intent.putExtras(TakeHeroesFromSQL());
+        startActivity(intent);
+    }
+
+    private void openHighScoreActivity() {
+        Intent intent = new Intent(this, HighScoreActivity.class);
+        startActivity(intent);
+    }
+
+    public void TakeHeroesFromSQL() {
+        String q;
+      //  ArrayList<Hero> heroes = new ArrayList<Hero>();
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
             q = "CREATE TABLE if not exists geroiOpit1(";
@@ -62,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
             q += "hitPoints integer not null, ";
             q += "status integer not null);";
             db.execSQL(q);
-
-
 
             db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
             q = "SELECT * FROM geroiOpit1";
@@ -75,34 +114,16 @@ public class MainActivity extends AppCompatActivity {
                 Integer heroHitPoints = c.getInt(c.getColumnIndex("hitPoints"));
                 Integer heroStatus = c.getInt(c.getColumnIndex("status"));
                 Hero hero = new Hero(id, heroName, heroAttackc, heroHitPoints, heroStatus);
-                heroes.add(hero);
+                Hero.list.add(hero);
+            //    heroes.add(hero);
             }
             c.close();
             db.close();
         } catch (SQLException e) {
             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
         }
-
-
-        Intent intent=new Intent(getApplicationContext(),ChooseHeroActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("123", heroes);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-    private void openCreateHeroActivity() {
-        Intent intent = new Intent(this, CreateHeroActivity.class);
-        startActivity(intent);
-    }
-
-    private void openHighScoreActivity() {
-        Intent intent = new Intent(this, HighScoreActivity.class);
-        startActivity(intent);
-    }
-
-    public void TakeHeroesFromSQL() {
-
-//
+        //Bundle bundle = new Bundle();
+       // bundle.putParcelableArrayList("123", heroes);
+        //return bundle;
     }
 }

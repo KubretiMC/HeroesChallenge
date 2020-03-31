@@ -24,16 +24,17 @@ public class ChooseHeroActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void ShowAllHeroes() {
-        ArrayList<Hero> heroes = getIntent().getParcelableArrayListExtra("123");
+        //ArrayList<Hero> heroes = getIntent().getParcelableArrayListExtra("123");
 
         res = findViewById(R.id.result);
         final ListView simpleList = findViewById(R.id.simpleListView);
         ArrayList<String> listResults = new ArrayList<>();
-        assert heroes != null;
-        for(int i = 0; i<heroes.size(); i++) {
+        //assert heroes != null;
 
-            listResults.add(heroes.get(i).getId() + " \t " + heroes.get(i).getName() + " \t " + heroes.get(i).getAttack()
-                    + " \t " + heroes.get(i).getHitPoints()+" \t "+heroes.get(i).getStatus());
+        for(int i = 0; i<Hero.list.size(); i++) {
+
+            listResults.add(Hero.list.get(i).getId() + " \t " + Hero.list.get(i).getName() + " \t " + Hero.list.get(i).getAttack()
+                    + " \t " + Hero.list.get(i).getHitPoints()+" \t "+Hero.list.get(i).getStatus());
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 getApplicationContext(),
