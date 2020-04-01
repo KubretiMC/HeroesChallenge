@@ -1,8 +1,6 @@
 package com.mariyan.heroeschallenge;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -12,7 +10,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,40 +46,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         TakeHeroesFromSQL();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-
-        String q;
-        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
-        db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
-        long count =  DatabaseUtils.queryNumEntries(db, "geroiOpit1");
-        int count2 = Integer.valueOf((int) count);
-        if(Hero.list.size()>count) {
-            for(int i=count2;i<Hero.list.size();i++) {
-                q = "INSERT INTO geroiOpit1(name,attack,hitPoints,status) VALUES(?,?,?,?);";
-                db.execSQL(q, new Object[]{Hero.list.get(i).getName(), Hero.list.get(i).getAttack(), Hero.list.get(i).getHitPoints(), Hero.list.get(i).getStatus()});
-            }
-        }
-        db.close();
+        updateHeroesSQL();
+        clearList();
     }
 
     private void openChooseHeroActivity() {
-
-
         Intent intent=new Intent(getApplicationContext(),ChooseHeroActivity.class);
-       // intent.putExtras(TakeHeroesFromSQL());
         startActivity(intent);
     }
 
     private void openCreateHeroActivity() {
         Intent intent = new Intent(this, CreateHeroActivity.class);
-        //intent.putExtras(TakeHeroesFromSQL());
         startActivity(intent);
     }
 
@@ -93,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void TakeHeroesFromSQL() {
         String q;
-      //  ArrayList<Hero> heroes = new ArrayList<Hero>();
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
             q = "CREATE TABLE if not exists geroiOpit1(";
@@ -103,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
             q += "hitPoints integer not null, ";
             q += "status integer not null);";
             db.execSQL(q);
-
             db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
             q = "SELECT * FROM geroiOpit1";
             Cursor c = db.rawQuery(q, null);
@@ -115,15 +93,31 @@ public class MainActivity extends AppCompatActivity {
                 Integer heroStatus = c.getInt(c.getColumnIndex("status"));
                 Hero hero = new Hero(id, heroName, heroAttackc, heroHitPoints, heroStatus);
                 Hero.list.add(hero);
-            //    heroes.add(hero);
             }
             c.close();
             db.close();
         } catch (SQLException e) {
             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
         }
-        //Bundle bundle = new Bundle();
-       // bundle.putParcelableArrayList("123", heroes);
-        //return bundle;
+    }
+
+    public void updateHeroesSQL()
+    {
+        String q;
+        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);;
+        long count =  DatabaseUtils.queryNumEntries(db, "geroiOpit1");
+        int count2 = Integer.valueOf((int) count);
+        if(Hero.list.size()>count) {
+            for(int i=count2;i<Hero.list.size();i++) {
+                q = "INSERT INTO geroiOpit1(name,attack,hitPoints,status) VALUES(?,?,?,?);";
+                db.execSQL(q, new Object[]{Hero.list.get(i).getName(), Hero.list.get(i).getAttack(), Hero.list.get(i).getHitPoints(), Hero.list.get(i).getStatus()});
+            }
+        }
+        db.close();
+    }
+
+    public void clearList()
+    {
+        Hero.list.clear();
     }
 }

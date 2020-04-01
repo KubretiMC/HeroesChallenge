@@ -1,9 +1,6 @@
 package com.mariyan.heroeschallenge;
 
 import android.app.Notification;
-import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,8 +11,6 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.ArrayList;
 
 public class CreateHeroActivity extends AppCompatActivity {
 
@@ -40,9 +35,6 @@ public class CreateHeroActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void createHero() {
-        //ArrayList<Hero> heroes = getIntent().getParcelableArrayListExtra("123");
-
-
         heroName = findViewById(R.id.heroNamePlainText);
         String name = heroName.getText().toString().trim();
 
