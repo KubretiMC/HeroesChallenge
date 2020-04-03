@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         updateHeroesSQL();
-        clearList();
+        Hero.list.clear();
     }
 
     private void openChooseHeroActivity() {
@@ -108,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
         long count =  DatabaseUtils.queryNumEntries(db, "geroiOpit1");
         int count2 = Integer.valueOf((int) count);
         if(Hero.list.size()>count) {
+            q = "CREATE TABLE if not exists geroiOpit1(";
+            q += "ID integer primary key AUTOINCREMENT, ";
+            q += "name text unique not null, ";
+            q += "attack integer not null, ";
+            q += "hitPoints integer not null, ";
+            q += "status integer not null);";
+            db.execSQL(q);
             for(int i=count2;i<Hero.list.size();i++) {
                 q = "INSERT INTO geroiOpit1(name,attack,hitPoints,status) VALUES(?,?,?,?);";
                 db.execSQL(q, new Object[]{Hero.list.get(i).getName(), Hero.list.get(i).getAttack(), Hero.list.get(i).getHitPoints(), Hero.list.get(i).getStatus()});
@@ -116,8 +123,4 @@ public class MainActivity extends AppCompatActivity {
         db.close();
     }
 
-    public void clearList()
-    {
-        Hero.list.clear();
-    }
 }

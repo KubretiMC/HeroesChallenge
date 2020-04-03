@@ -5,48 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HeroActivity">
+    tools:context=".UpgradeActivity">
 
 
     <TableLayout android:layout_height="match_parent" android:layout_width="match_parent">
-        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="130dp"
-                android:text="@string/name"
-                android:id="@+id/nameTextView"/>
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="90dp"
-                android:text="@string/empty_string"
-                android:id="@+id/heroNameTextView"/>
-        </TableRow>
-        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="130dp"
-                android:text="@string/attack"
-                android:id="@+id/attackTextView"/>
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="90dp"
-                android:text="@string/empty_string"
-                android:id="@+id/heroAttackTextView"/>
-        </TableRow>
-
-        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="130dp"
-                android:text="Hit Points:"
-                android:id="@+id/hitPointsTextView"/>
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="@string/empty_string"
-                android:id="@+id/heroHitPointsTextView"/>
-        </TableRow>
-
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
             <TextView
                 android:layout_height="wrap_content"
@@ -60,37 +22,59 @@
                 android:id="@+id/heroUnspentPointsTextView"/>
         </TableRow>
 
-        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
-        <Button
-            android:id="@+id/upgradeButton"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:text="@string/upgrade"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-        </TableRow>
 
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
-            <Button
-                android:id="@+id/fightEnemyButton"
-                android:layout_width="130dp"
+            <TextView
                 android:layout_height="wrap_content"
-                android:text="FIGHT ENEMY"
+                android:layout_width="130dp"
+                android:text="@string/attack"
+                android:id="@+id/attackTextView"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:text="@string/empty_string"
+                android:id="@+id/heroAttackTextView"/>
+            <Button
+                android:id="@+id/addButton"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/plus"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 />
         </TableRow>
 
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
-            <Button
-                android:id="@+id/dungeonRun"
-                android:layout_width="130dp"
+            <TextView
                 android:layout_height="wrap_content"
-                android:text="DUNGEON RUN"
+                android:layout_width="130dp"
+                android:text="Hit Points:"
+                android:id="@+id/hitPointsTextView"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:text="@string/empty_string"
+                android:id="@+id/heroHitPointsTextView"/>
+            <Button
+                android:id="@+id/add2Button"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/plus"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                 />
+                />
+        </TableRow>
+
+
+        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+            <Button
+                android:id="@+id/comfirmButton"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/comfirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
         </TableRow>
     </TableLayout>
 

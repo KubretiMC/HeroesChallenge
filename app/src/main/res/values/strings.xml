@@ -10,4 +10,7 @@
     <string name="upgrade">UPGRADE</string>
     <string name="fight_enemy">FIGHT ENEMY</string>
     <string name="dungeon_run">DUNGEON RUN</string>
+    <string name="name">Name</string>
+    <string name="comfirm">COMFIRM</string>
+    <string name="plus">+</string>
 </resources>
