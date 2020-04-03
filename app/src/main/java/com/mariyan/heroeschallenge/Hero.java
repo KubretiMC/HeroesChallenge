@@ -10,14 +10,16 @@ public class Hero implements Parcelable {
     private String name;
     private Integer attack;
     private Integer hitPoints;
+    private Integer unspentPoints;
     private Integer status;
     public static ArrayList<Hero> list = new ArrayList<Hero>();
 
-    public Hero(int id, String name, Integer attack, Integer hitPoints, Integer status){
+    public Hero(int id, String name, Integer attack, Integer hitPoints,Integer unspentPoints, Integer status){
         this.id = id;
         this.name = name;
         this.attack = attack;
         this.hitPoints = hitPoints;
+        this.unspentPoints = unspentPoints;
         this.status = status;
     }
 
@@ -37,6 +39,11 @@ public class Hero implements Parcelable {
             hitPoints = null;
         } else {
             hitPoints = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            unspentPoints = null;
+        } else {
+            unspentPoints = in.readInt();
         }
         if (in.readByte() == 0) {
             status = null;
@@ -89,6 +96,14 @@ public class Hero implements Parcelable {
         this.hitPoints = hitPoints;
     }
 
+    public Integer getUnspentPoints() {
+        return unspentPoints;
+    }
+
+    public void setUnspentPoints(Integer unspentPoints) {
+        this.unspentPoints = unspentPoints;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -122,6 +137,12 @@ public class Hero implements Parcelable {
         } else {
             dest.writeByte((byte) 1);
             dest.writeInt(hitPoints);
+        }
+        if (unspentPoints == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeInt(unspentPoints);
         }
         if (status == null) {
             dest.writeByte((byte) 0);

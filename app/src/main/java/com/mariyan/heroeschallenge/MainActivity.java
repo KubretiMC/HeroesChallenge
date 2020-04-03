@@ -1,6 +1,8 @@
 package com.mariyan.heroeschallenge;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
@@ -11,12 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
+public class MainActivity extends AppCompatActivity {
+//cant save changes when closing the app
     private Button chooseHero;
     private Button createHero;
     private Button highScore;
-
+    public static List updatedHeroes = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +57,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        updateHeroesSQL();
-        Hero.list.clear();
+        if(!updatedHeroes.isEmpty())
+        {
+            SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
+            ContentValues cv = new ContentValues();
+            Integer j;
+            for(int i=0;i<updatedHeroes.size();i++)
+            {
+                j= (Integer) updatedHeroes.get(i);
+                cv.put("attack",Hero.list.get(j).getAttack());
+                cv.put("hitPoints",Hero.list.get(j).getHitPoints());
+                cv.put("unspentPoints",Hero.list.get(j).getUnspentPoints());
+                db.update("geroiOpit1", cv, "ID=", new String[]{j.toString()});
+            }
+        }
+        if(!Hero.list.isEmpty()) {
+            updateHeroesSQL();
+            Hero.list.clear();
+        }
     }
 
     private void openChooseHeroActivity() {
@@ -72,26 +93,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void TakeHeroesFromSQL() {
-        String q;
+        String q="";
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
-            q = "CREATE TABLE if not exists geroiOpit1(";
-            q += "ID integer primary key AUTOINCREMENT, ";
-            q += "name text unique not null, ";
-            q += "attack integer not null, ";
-            q += "hitPoints integer not null, ";
-            q += "status integer not null);";
-            db.execSQL(q);
+            createTableIfNotExists(q,db);
+
             db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
             q = "SELECT * FROM geroiOpit1";
             Cursor c = db.rawQuery(q, null);
             while (c.moveToNext()) {
                 Integer id = c.getInt(c.getColumnIndex("ID"));
                 String heroName = c.getString(c.getColumnIndex("name"));
-                Integer heroAttackc = c.getInt(c.getColumnIndex("attack"));
+                Integer heroAttack = c.getInt(c.getColumnIndex("attack"));
                 Integer heroHitPoints = c.getInt(c.getColumnIndex("hitPoints"));
+                Integer unspentPoints = c.getInt(c.getColumnIndex("unspentPoints"));
                 Integer heroStatus = c.getInt(c.getColumnIndex("status"));
-                Hero hero = new Hero(id, heroName, heroAttackc, heroHitPoints, heroStatus);
+                Hero hero = new Hero(id, heroName, heroAttack, heroHitPoints, unspentPoints, heroStatus);
                 Hero.list.add(hero);
             }
             c.close();
@@ -103,24 +120,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void updateHeroesSQL()
     {
-        String q;
+        String q="";
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);;
         long count =  DatabaseUtils.queryNumEntries(db, "geroiOpit1");
         int count2 = Integer.valueOf((int) count);
         if(Hero.list.size()>count) {
-            q = "CREATE TABLE if not exists geroiOpit1(";
-            q += "ID integer primary key AUTOINCREMENT, ";
-            q += "name text unique not null, ";
-            q += "attack integer not null, ";
-            q += "hitPoints integer not null, ";
-            q += "status integer not null);";
-            db.execSQL(q);
             for(int i=count2;i<Hero.list.size();i++) {
-                q = "INSERT INTO geroiOpit1(name,attack,hitPoints,status) VALUES(?,?,?,?);";
-                db.execSQL(q, new Object[]{Hero.list.get(i).getName(), Hero.list.get(i).getAttack(), Hero.list.get(i).getHitPoints(), Hero.list.get(i).getStatus()});
+                q = "INSERT INTO geroiOpit1(name,attack,hitPoints,unspentPoints,status) VALUES(?,?,?,?,?);";
+                db.execSQL(q, new Object[]{Hero.list.get(i).getName(), Hero.list.get(i).getAttack(),
+                Hero.list.get(i).getHitPoints(),Hero.list.get(i).getUnspentPoints(), Hero.list.get(i).getStatus()});
             }
         }
         db.close();
+    }
+
+    public void createTableIfNotExists(String q, SQLiteDatabase db)
+    {
+        q = "CREATE TABLE if not exists geroiOpit1(";
+        q += "ID integer primary key AUTOINCREMENT, ";
+        q += "name text unique not null, ";
+        q += "attack integer not null, ";
+        q += "hitPoints integer not null, ";
+        q += "unspentPoints integer not null, ";
+        q += "status integer not null);";
+        db.execSQL(q);
     }
 
 }

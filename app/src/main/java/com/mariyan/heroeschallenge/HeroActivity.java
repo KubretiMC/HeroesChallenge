@@ -31,24 +31,26 @@ public class HeroActivity extends AppCompatActivity {
         Integer heroID= Integer.valueOf(getIntent().getIntExtra("heroID",0));
         String name = Hero.list.get(heroID).getName();
         Integer attack = Hero.list.get(heroID).getAttack();
+        Integer unspentPoints = Hero.list.get(heroID)   .getUnspentPoints();
         Integer hitPoints = Hero.list.get(heroID).getHitPoints();
 
         heroName.setText(name);
         heroAttack.setText(attack.toString());
         heroHitPoints.setText(hitPoints.toString());
-        heroUnspentPoints.setText("1");
+        heroUnspentPoints.setText(unspentPoints.toString());
 
         upgrade.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-                openUpgradeActivity();
+                openUpgradeActivity(heroID);
             }
         });
     }
 
-    private void openUpgradeActivity() {
+    private void openUpgradeActivity(Integer heroID) {
         Intent intent = new Intent(this, UpgradeActivity.class);
+        intent.putExtra("heroID", heroID);
         startActivity(intent);
     }
 }

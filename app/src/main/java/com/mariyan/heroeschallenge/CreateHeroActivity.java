@@ -63,7 +63,7 @@ public class CreateHeroActivity extends AppCompatActivity {
             } else {
                 try {
                     Integer id = Integer.valueOf(Hero.list.size())+1;
-                    Hero hero = new Hero(id, name, 1, 5, 1);
+                    Hero hero = new Hero(id, name, 1, 5, 200,1);
                     Hero.list.add(hero);
                     Toast.makeText(getApplicationContext(), "Hero created successful!", Toast.LENGTH_LONG).show();
                     Notification notify = new Notification.Builder(getApplicationContext())
