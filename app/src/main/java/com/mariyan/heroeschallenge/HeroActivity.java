@@ -29,15 +29,6 @@ public class HeroActivity extends AppCompatActivity {
         upgrade=findViewById(R.id.upgradeButton);
 
         Integer heroID= Integer.valueOf(getIntent().getIntExtra("heroID",0));
-        String name = Hero.list.get(heroID).getName();
-        Integer attack = Hero.list.get(heroID).getAttack();
-        Integer unspentPoints = Hero.list.get(heroID)   .getUnspentPoints();
-        Integer hitPoints = Hero.list.get(heroID).getHitPoints();
-
-        heroName.setText(name);
-        heroAttack.setText(attack.toString());
-        heroHitPoints.setText(hitPoints.toString());
-        heroUnspentPoints.setText(unspentPoints.toString());
 
         upgrade.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -46,6 +37,20 @@ public class HeroActivity extends AppCompatActivity {
                 openUpgradeActivity(heroID);
             }
         });
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        Integer heroID= Integer.valueOf(getIntent().getIntExtra("heroID",0));
+        Integer attack = Hero.list.get(heroID).getAttack();
+        Integer unspentPoints = Hero.list.get(heroID).getUnspentPoints();
+        Integer hitPoints = Hero.list.get(heroID).getHitPoints();
+
+        heroAttack.setText(attack.toString());
+        heroHitPoints.setText(hitPoints.toString());
+        heroUnspentPoints.setText(unspentPoints.toString());
     }
 
     private void openUpgradeActivity(Integer heroID) {

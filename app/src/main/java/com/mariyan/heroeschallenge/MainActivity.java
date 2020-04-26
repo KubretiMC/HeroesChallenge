@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 cv.put("attack",Hero.list.get(j).getAttack());
                 cv.put("hitPoints",Hero.list.get(j).getHitPoints());
                 cv.put("unspentPoints",Hero.list.get(j).getUnspentPoints());
-                db.update("geroiOpit1", cv, "ID=", new String[]{j.toString()});
+                db.update("geroiOpit1", cv, "ID=?", new String[]{(++j).toString()});
             }
         }
         if(!Hero.list.isEmpty()) {
