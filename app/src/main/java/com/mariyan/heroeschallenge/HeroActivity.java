@@ -16,7 +16,7 @@ public class HeroActivity extends AppCompatActivity {
     TextView heroHitPoints;
     TextView heroUnspentPoints;
     Button upgrade;
-
+    Button fightEnemy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +27,13 @@ public class HeroActivity extends AppCompatActivity {
         heroHitPoints=findViewById(R.id.heroHitPointsTextView);
         heroUnspentPoints=findViewById(R.id.heroUnspentPointsTextView);
         upgrade=findViewById(R.id.upgradeButton);
+        fightEnemy=findViewById(R.id.fightEnemyButton);
+
 
         Integer heroID= Integer.valueOf(getIntent().getIntExtra("heroID",0));
+        String name = Hero.list.get(heroID).getName();
+        heroName.setText(name);
+
 
         upgrade.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -37,6 +42,16 @@ public class HeroActivity extends AppCompatActivity {
                 openUpgradeActivity(heroID);
             }
         });
+
+        fightEnemy.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
+            public void onClick(View V) {
+                openChooseEnemyActivity();
+            }
+        });
+
+
     }
 
     @Override
@@ -56,6 +71,11 @@ public class HeroActivity extends AppCompatActivity {
     private void openUpgradeActivity(Integer heroID) {
         Intent intent = new Intent(this, UpgradeActivity.class);
         intent.putExtra("heroID", heroID);
+        startActivity(intent);
+    }
+
+    private void openChooseEnemyActivity() {
+        Intent intent=new Intent(getApplicationContext(),ChooseEnemyActivity.class);
         startActivity(intent);
     }
 }
