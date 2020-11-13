@@ -12,6 +12,7 @@ public class Hero implements Parcelable {
     private Integer hitPoints;
     private Integer unspentPoints;
     private Integer status;
+
     public static ArrayList<Hero> list = new ArrayList<Hero>();
 
     public Hero(int id, String name, Integer attack, Integer hitPoints,Integer unspentPoints, Integer status){

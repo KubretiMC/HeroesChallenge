@@ -17,6 +17,8 @@ public class HeroActivity extends AppCompatActivity {
     TextView heroUnspentPoints;
     Button upgrade;
     Button fightEnemy;
+
+    Integer heroID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,7 @@ public class HeroActivity extends AppCompatActivity {
         fightEnemy=findViewById(R.id.fightEnemyButton);
 
 
-        Integer heroID= Integer.valueOf(getIntent().getIntExtra("heroID",0));
+        heroID= Integer.valueOf(getIntent().getIntExtra("heroID",0));
         String name = Hero.list.get(heroID).getName();
         heroName.setText(name);
 
@@ -58,7 +60,7 @@ public class HeroActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
 
-        Integer heroID= Integer.valueOf(getIntent().getIntExtra("heroID",0));
+       // Integer heroID= Integer.valueOf(getIntent().getIntExtra("heroID",0));
         Integer attack = Hero.list.get(heroID).getAttack();
         Integer unspentPoints = Hero.list.get(heroID).getUnspentPoints();
         Integer hitPoints = Hero.list.get(heroID).getHitPoints();

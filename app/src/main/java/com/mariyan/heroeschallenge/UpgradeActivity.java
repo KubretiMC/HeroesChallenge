@@ -16,7 +16,7 @@ public class UpgradeActivity extends AppCompatActivity {
     TextView heroHitPoints;
     Button addAttack;
     Button addHitPoints;
-    Button comfirm;
+    Button confirm;
     Integer unspentPoints;
     Integer attack;
     Integer hitPoints;
@@ -32,7 +32,7 @@ public class UpgradeActivity extends AppCompatActivity {
         heroHitPoints = findViewById(R.id.heroHitPointsTextView);
         addAttack = findViewById(R.id.addAttackButton);
         addHitPoints = findViewById(R.id.addHitPointsButton);
-        comfirm = findViewById(R.id.comfirmButton);
+        confirm = findViewById(R.id.comfirmButton);
 
         Integer heroID= Integer.valueOf(getIntent().getIntExtra("heroID",-1));
 
@@ -48,23 +48,25 @@ public class UpgradeActivity extends AppCompatActivity {
         addAttack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(add(attack,heroAttack))
+                if(add())
                 {
                     attack++;
+                    heroAttack.setText(attack.toString());
                 };
             }
         });
         addHitPoints.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(add(hitPoints,heroHitPoints))
+                if(add())
                 {
                     hitPoints++;
+                    heroHitPoints.setText(hitPoints.toString());
                 };
             }
         });
 
-        comfirm.setOnClickListener(new View.OnClickListener() {
+        confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(pointsChange==unspentPoints) {
@@ -90,12 +92,12 @@ public class UpgradeActivity extends AppCompatActivity {
         });
 
     }
-    public Boolean add(Integer attributePoints, TextView attributeName) {
+    public Boolean add() {
         if (unspentPoints > 0) {
             unspentPoints -= 1;
-            attributePoints += 1;
+            //attributePoints += 1;
             heroUnspentPoints.setText(unspentPoints.toString());
-            attributeName.setText(attributePoints.toString());
+            //attributeName.setText(attributePoints.toString());
             return true;
         } else {
             Toast.makeText(getApplicationContext(), "Not enough points!", Toast.LENGTH_LONG).show();

@@ -1,5 +1,6 @@
 package com.mariyan.heroeschallenge;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -8,16 +9,18 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-//cant save changes when closing the app
+
     private Button chooseHero;
     private Button createHero;
     private Button highScore;
@@ -54,12 +57,13 @@ public class MainActivity extends AppCompatActivity {
         TakeHeroesFromSQL();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O_MR1)
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if(!updatedHeroes.isEmpty())
         {
-            SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
+            SQLiteDatabase db = SQLiteDatabase.openDatabase(new File(getFilesDir().getPath() + "/" + "geroiOpit1.db"), null);
             ContentValues cv = new ContentValues();
             Integer j;
             for(int i=0;i<updatedHeroes.size();i++)
@@ -98,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
             createTableIfNotExists(q,db);
 
-            db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
+            //db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
             q = "SELECT * FROM geroiOpit1";
             Cursor c = db.rawQuery(q, null);
             while (c.moveToNext()) {

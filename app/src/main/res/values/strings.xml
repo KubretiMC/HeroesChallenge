@@ -2,7 +2,7 @@
     <string name="app_name">Heroes Challenge</string>
     <string name="choose_hero">Choose Hero</string>
     <string name="create_hero">Create Hero</string>
-    <string name="high_scrore">High Scrore</string>
+    <string name="high_scrore">High Score</string>
     <string name="hero_name">Hero name:</string>
     <string name="attack">Attack:</string>
     <string name="unspent_points">Unspent points:</string>
@@ -11,6 +11,6 @@
     <string name="fight_enemy">FIGHT ENEMY</string>
     <string name="dungeon_run">DUNGEON RUN</string>
     <string name="name">Name</string>
-    <string name="comfirm">COMFIRM</string>
+    <string name="confirm">CONFIRM</string>
     <string name="plus">+</string>
 </resources>
