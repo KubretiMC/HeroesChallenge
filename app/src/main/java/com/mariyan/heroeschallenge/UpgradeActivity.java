@@ -17,10 +17,10 @@ public class UpgradeActivity extends AppCompatActivity {
     Button addAttack;
     Button addHitPoints;
     Button confirm;
-    Integer unspentPoints;
+    Integer heroID;
     Integer attack;
     Integer hitPoints;
-
+    Integer unspentPoints;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +34,7 @@ public class UpgradeActivity extends AppCompatActivity {
         addHitPoints = findViewById(R.id.addHitPointsButton);
         confirm = findViewById(R.id.comfirmButton);
 
-        Integer heroID= Integer.valueOf(getIntent().getIntExtra("heroID",-1));
-
+        heroID= Integer.valueOf(getIntent().getIntExtra("heroID",-1));
         attack = Hero.list.get(heroID).getAttack();
         hitPoints = Hero.list.get(heroID).getHitPoints();
         unspentPoints = Hero.list.get(heroID).getUnspentPoints();
@@ -69,7 +68,7 @@ public class UpgradeActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pointsChange==unspentPoints) {
+                if(pointsChange.equals(unspentPoints)) {
                     Toast.makeText(getApplicationContext(), "You didn't make any changes!", Toast.LENGTH_LONG).show();
                     Notification notify = new Notification.Builder(getApplicationContext())
                             .setContentTitle("You didn't make any changes!")

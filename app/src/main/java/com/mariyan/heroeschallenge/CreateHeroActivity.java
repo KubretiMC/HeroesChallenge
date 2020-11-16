@@ -1,6 +1,8 @@
 package com.mariyan.heroeschallenge;
 
 import android.app.Notification;
+import android.database.DatabaseUtils;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,9 +64,20 @@ public class CreateHeroActivity extends AppCompatActivity {
                 notify.flags |= Notification.FLAG_AUTO_CANCEL;
             } else {
                 try {
-                    Integer id = Integer.valueOf(Hero.list.size())+1;
-                    Hero hero = new Hero(id, name, 1, 5, 200,1);
+                    Integer id = Integer.valueOf(Hero.list.size()) + 1;
+                    Hero hero = new Hero(id, name, 1, 5, 200, 1);
                     Hero.list.add(hero);
+
+
+                    String q = "";
+                    SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
+
+                    //long count = DatabaseUtils.queryNumEntries(db, "geroiOpit1");
+                    //int count2 = Integer.valueOf((int) count);
+                    q = "INSERT INTO HEROES(name,attack,hitPoints,unspentPoints,status) VALUES(?,?,?,?,?);";
+                    db.execSQL(q, new Object[]{name,1,5,200,1});
+                    db.close();
+
                     Toast.makeText(getApplicationContext(), "Hero created successful!", Toast.LENGTH_LONG).show();
                     Notification notify = new Notification.Builder(getApplicationContext())
                             .setContentTitle("Hero created successful")

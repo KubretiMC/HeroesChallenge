@@ -2,9 +2,10 @@
     <string name="app_name">Heroes Challenge</string>
     <string name="choose_hero">Choose Hero</string>
     <string name="create_hero">Create Hero</string>
-    <string name="high_scrore">High Score</string>
+    <string name="high_score">High Score</string>
     <string name="hero_name">Hero name:</string>
     <string name="attack">Attack:</string>
+    <string name="hit_points">Hit Points</string>
     <string name="unspent_points">Unspent points:</string>
     <string name="empty_string" />
     <string name="upgrade">UPGRADE</string>
@@ -13,4 +14,6 @@
     <string name="name">Name</string>
     <string name="confirm">CONFIRM</string>
     <string name="plus">+</string>
+    <string name="points">Points</string>
+    <string name="choose_enemy">Choose Enemy</string>;
 </resources>

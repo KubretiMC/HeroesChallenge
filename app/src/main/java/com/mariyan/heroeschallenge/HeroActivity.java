@@ -78,6 +78,7 @@ public class HeroActivity extends AppCompatActivity {
 
     private void openChooseEnemyActivity() {
         Intent intent=new Intent(getApplicationContext(),ChooseEnemyActivity.class);
+        intent.putExtra("heroID", heroID);
         startActivity(intent);
     }
 }

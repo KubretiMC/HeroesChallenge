@@ -12,39 +12,40 @@
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
             <TextView
                 android:layout_height="wrap_content"
-                android:layout_width="130dp"
-                android:text="@string/name"
-                android:id="@+id/nameTextView"/>
+                android:layout_width="200dp"
+                android:text="@string/empty_string"
+                android:id="@+id/heroNameTextView"/>
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="90dp"
                 android:text="@string/empty_string"
-                android:id="@+id/heroNameTextView"/>
+                android:id="@+id/villainNameTextView"/>
+
         </TableRow>
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="130dp"
-                android:text="@string/attack"
-                android:id="@+id/attackTextView"/>
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="90dp"
                 android:text="@string/empty_string"
                 android:id="@+id/heroAttackTextView"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="90dp"
+                android:text="@string/empty_string"
+                android:id="@+id/villainAttackTextView"/>
         </TableRow>
 
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
             <TextView
                 android:layout_height="wrap_content"
-                android:layout_width="130dp"
-                android:text="@string/hit_points"
-                android:id="@+id/hitPointsTextView"/>
+                android:layout_width="match_parent"
+                android:text="@string/empty_string"
+                android:id="@+id/heroHitPointsTextView"/>
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="@string/empty_string"
-                android:id="@+id/heroHitPointsTextView"/>
+                android:id="@+id/villainHitPointsTextView"/>
         </TableRow>
 
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
@@ -60,38 +61,15 @@
                 android:id="@+id/heroUnspentPointsTextView"/>
         </TableRow>
 
-        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
         <Button
-            android:id="@+id/upgradeButton"
+            android:id="@+id/attackButton"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:text="@string/upgrade"
+            android:text="@string/attack"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-        </TableRow>
-
-        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
-            <Button
-                android:id="@+id/fightEnemyButton"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:text="@string/choose_enemy"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
-        </TableRow>
-
-        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
-            <Button
-                android:id="@+id/dungeonRun"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:text="@string/dungeon_run"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                 />
-        </TableRow>
+            app:layout_constraintStart_toStartOf="parent" />
     </TableLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

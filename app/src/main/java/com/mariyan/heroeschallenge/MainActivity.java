@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if(!updatedHeroes.isEmpty())
         {
-            SQLiteDatabase db = SQLiteDatabase.openDatabase(new File(getFilesDir().getPath() + "/" + "geroiOpit1.db"), null);
+            SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(new File(getFilesDir().getPath() + "/" + "geroiOpit1.db"), null);
             ContentValues cv = new ContentValues();
             Integer j;
             for(int i=0;i<updatedHeroes.size();i++)
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 cv.put("attack",Hero.list.get(j).getAttack());
                 cv.put("hitPoints",Hero.list.get(j).getHitPoints());
                 cv.put("unspentPoints",Hero.list.get(j).getUnspentPoints());
-                db.update("geroiOpit1", cv, "ID=?", new String[]{(++j).toString()});
+                db.update("HEROES", cv, "ID=?", new String[]{(++j).toString()});
             }
         }
         if(!Hero.list.isEmpty()) {
@@ -87,23 +87,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openCreateHeroActivity() {
-        Intent intent = new Intent(this, CreateHeroActivity.class);
+        Intent intent = new Intent(getApplicationContext(), CreateHeroActivity.class);
         startActivity(intent);
     }
 
     private void openHighScoreActivity() {
-        Intent intent = new Intent(this, HighScoreActivity.class);
+        Intent intent = new Intent(getApplicationContext(), HighScoreActivity.class);
         startActivity(intent);
     }
 
     public void TakeHeroesFromSQL() {
         String q="";
-        try {
+
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
-            createTableIfNotExists(q,db);
+            createTableIfNotExistsHeroes(q,db);
+            createTableIfNotExistsVillains(q,db);
 
             //db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
-            q = "SELECT * FROM geroiOpit1";
+            q = "SELECT * FROM HEROES";
             Cursor c = db.rawQuery(q, null);
             while (c.moveToNext()) {
                 Integer id = c.getInt(c.getColumnIndex("ID"));
@@ -115,22 +116,36 @@ public class MainActivity extends AppCompatActivity {
                 Hero hero = new Hero(id, heroName, heroAttack, heroHitPoints, unspentPoints, heroStatus);
                 Hero.list.add(hero);
             }
+
+            q = "SELECT * FROM VILLAINS";
+            c = db.rawQuery(q, null);
+            while (c.moveToNext()) {
+                Integer id = c.getInt(c.getColumnIndex("ID"));
+                String heroName = c.getString(c.getColumnIndex("name"));
+                Integer heroAttack = c.getInt(c.getColumnIndex("attack"));
+                Integer heroHitPoints = c.getInt(c.getColumnIndex("hitPoints"));
+                Villain villain = new Villain(id, heroName, heroAttack, heroHitPoints);
+                Villain.list.add(villain);
+            }
+//            for(int i=1;i<5;i++) {
+//                q = "INSERT INTO VILLAINS(name,attack,hitPoints) VALUES(?,?,?);";
+//                db.execSQL(q, new Object[]{i, i, i*2});
+//            }
+
             c.close();
             db.close();
-        } catch (SQLException e) {
-            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
-        }
+
     }
 
     public void updateHeroesSQL()
     {
         String q="";
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);;
-        long count =  DatabaseUtils.queryNumEntries(db, "geroiOpit1");
+        long count =  DatabaseUtils.queryNumEntries(db, "HEROES");
         int count2 = Integer.valueOf((int) count);
         if(Hero.list.size()>count) {
             for(int i=count2;i<Hero.list.size();i++) {
-                q = "INSERT INTO geroiOpit1(name,attack,hitPoints,unspentPoints,status) VALUES(?,?,?,?,?);";
+                q = "INSERT INTO HEROES(name,attack,hitPoints,unspentPoints,status) VALUES(?,?,?,?,?);";
                 db.execSQL(q, new Object[]{Hero.list.get(i).getName(), Hero.list.get(i).getAttack(),
                 Hero.list.get(i).getHitPoints(),Hero.list.get(i).getUnspentPoints(), Hero.list.get(i).getStatus()});
             }
@@ -138,15 +153,25 @@ public class MainActivity extends AppCompatActivity {
         db.close();
     }
 
-    public void createTableIfNotExists(String q, SQLiteDatabase db)
+    public void createTableIfNotExistsHeroes(String q, SQLiteDatabase db)
     {
-        q = "CREATE TABLE if not exists geroiOpit1(";
+        q = "CREATE TABLE if not exists Heroes(";
         q += "ID integer primary key AUTOINCREMENT, ";
         q += "name text unique not null, ";
         q += "attack integer not null, ";
         q += "hitPoints integer not null, ";
         q += "unspentPoints integer not null, ";
         q += "status integer not null);";
+        db.execSQL(q);
+    }
+
+    public void createTableIfNotExistsVillains(String q, SQLiteDatabase db)
+    {
+        q = "CREATE TABLE if not exists Villains(";
+        q += "ID integer primary key AUTOINCREMENT, ";
+        q += "name text unique not null, ";
+        q += "attack integer not null, ";
+        q += "hitPoints integer not null);";
         db.execSQL(q);
     }
 

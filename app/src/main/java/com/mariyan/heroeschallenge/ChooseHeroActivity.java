@@ -27,11 +27,9 @@ public class ChooseHeroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_hero);
 
-
-
         ShowAllHeroes();
-
         ListView heroesList=ShowAllHeroes();
+
         heroesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,

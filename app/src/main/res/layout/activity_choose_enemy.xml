@@ -3,18 +3,57 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="match_parent"
     tools:context=".ChooseEnemyActivity">
 
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="fill_parent" android:layout_height="50dp"
+        tools:ignore="MissingConstraints">
+
+        <TableRow android:layout_width="match_parent" android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/name" />
+
+            <TextView
+                android:id="@+id/attackTextView"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/attack" />
+
+            <TextView
+                android:id="@+id/hitPointsTextView"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/hit_points" />
+
+            <TextView
+                android:id="@+id/pointsTextView"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/points" />
+        </TableRow>
+    </TableLayout>
+
     <ListView
-        android:layout_height="300dp"
+        android:layout_height="250dp"
         android:layout_width="match_parent"
         android:id="@+id/simpleListView"
         android:dividerHeight="1dp"
         android:divider="@color/colorPrimaryDark"
         android:choiceMode="singleChoice"
         android:listSelector="#666666"
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout"
         tools:ignore="MissingConstraints" />
 
 
@@ -22,7 +61,7 @@
         android:id="@+id/ChooseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/choose_hero"
+        android:text="@string/choose_enemy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/simpleListView" />

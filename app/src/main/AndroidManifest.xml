@@ -15,6 +15,7 @@
         <activity android:name=".ChooseHeroActivity"></activity>
         <activity android:name=".CreateHeroActivity"></activity>
         <activity android:name=".HighScoreActivity"></activity>
+        <activity android:name=".FightEnemyActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

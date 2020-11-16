@@ -20,9 +20,8 @@ import java.util.ArrayList;
 public class ChooseEnemyActivity extends AppCompatActivity {
     private Button choose;
     private TextView res;
-    private Integer heroID=-1;
-    public static ArrayList<Hero> list = new ArrayList<Hero>();
-
+    private Integer villainID =-1;
+    private Integer heroID;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -30,17 +29,16 @@ public class ChooseEnemyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_enemy);
 
+        ShowAllVillains();
+        ListView villainsList=ShowAllVillains();
 
+        heroID= Integer.valueOf(getIntent().getIntExtra("heroID",0));
 
-        ShowAllHeroes();
-
-        ListView heroesList=ShowAllHeroes();
-
-        heroesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        villainsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                heroID=position;
+                villainID=position;
             }
         });
 
@@ -52,7 +50,7 @@ public class ChooseEnemyActivity extends AppCompatActivity {
                 //Integer position=ShowAllHeroes().getSelectedItemPosition();
                 //String d = position.toString();
                 //choose.setText(position);
-                if (heroID == -1) {
+                if (villainID == -1) {
                     Toast.makeText(getApplicationContext(), "No enemy chosen!", Toast.LENGTH_LONG).show();
                     Notification notify = new Notification.Builder(getApplicationContext())
                             .setContentTitle("No enemy chosen!")
@@ -60,25 +58,22 @@ public class ChooseEnemyActivity extends AppCompatActivity {
                             .build();
                     notify.flags |= Notification.FLAG_AUTO_CANCEL;
                 } else {
-
-                    openHeroActivity();
+                    openFightEnemyActivity();
                 }
             }
         });
-
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.N)
-    private ListView ShowAllHeroes() {
+    private ListView ShowAllVillains() {
         res = findViewById(R.id.result);
         final ListView simpleList = findViewById(R.id.simpleListView);
         ArrayList<String> listResults = new ArrayList<>();
 
-        for(int i = 0; i<Hero.list.size(); i++) {
-
-            listResults.add(Hero.list.get(i).getName());
+        for(int i = 0; i<Villain.list.size(); i++) {
+            listResults.add(Villain.list.get(i).getName()+ "                         " + Villain.list.get(i).getAttack()+ "                         "
+                    + Villain.list.get(i).getHitPoints() +"                        "+ (i+1));
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 getApplicationContext(),
@@ -88,11 +83,11 @@ public class ChooseEnemyActivity extends AppCompatActivity {
         );
         simpleList.setAdapter(arrayAdapter);
         return simpleList;
-
     }
 
-    private void openHeroActivity() {
-        Intent intent=new Intent(getApplicationContext(),HeroActivity.class);
+    private void openFightEnemyActivity() {
+        Intent intent=new Intent(getApplicationContext(),FightEnemyActivity.class);
+        intent.putExtra("villainID", villainID);
         intent.putExtra("heroID", heroID);
         startActivity(intent);
     }

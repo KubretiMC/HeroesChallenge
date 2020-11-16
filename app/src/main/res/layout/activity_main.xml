@@ -30,7 +30,7 @@
         android:id="@+id/HighScoreButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="@string/high_scrore"
+        android:text="@string/high_score"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CreateHeroButton" />
