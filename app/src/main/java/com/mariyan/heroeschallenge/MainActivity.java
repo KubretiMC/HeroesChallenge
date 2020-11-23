@@ -119,7 +119,14 @@ public class MainActivity extends AppCompatActivity {
 
             q = "SELECT * FROM VILLAINS";
             c = db.rawQuery(q, null);
-            while (c.moveToNext()) {
+        //            for(int i=1;i<5;i++) {
+  //            q = "INSERT INTO VILLAINS(name,attack,hitPoints) VALUES(?,?,?);";
+//          db.execSQL(q, new Object[]{"Blago Kucheto", 1, 5});
+    //     db.execSQL(q, new Object[]{"John Cena       ", 4, 10});
+      //  db.execSQL(q, new Object[]{"Krisko               ", 1, 1});
+//            }
+
+        while (c.moveToNext()) {
                 Integer id = c.getInt(c.getColumnIndex("ID"));
                 String heroName = c.getString(c.getColumnIndex("name"));
                 Integer heroAttack = c.getInt(c.getColumnIndex("attack"));
@@ -127,10 +134,6 @@ public class MainActivity extends AppCompatActivity {
                 Villain villain = new Villain(id, heroName, heroAttack, heroHitPoints);
                 Villain.list.add(villain);
             }
-//            for(int i=1;i<5;i++) {
-//                q = "INSERT INTO VILLAINS(name,attack,hitPoints) VALUES(?,?,?);";
-//                db.execSQL(q, new Object[]{i, i, i*2});
-//            }
 
             c.close();
             db.close();
