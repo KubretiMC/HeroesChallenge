@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -117,13 +119,22 @@ public class MainActivity extends AppCompatActivity {
                 Hero.list.add(hero);
             }
 
-            
             q = "SELECT * FROM VILLAINS";
             c = db.rawQuery(q, null);
-                    for(int i=1;i<5;i++) {
-              q = "INSERT INTO VILLAINS(name,attack,hitPoints) VALUES(?,?,?);";
-          db.execSQL(q, new Object[]{"Villain      "+i, 1, 5});
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (!prefs.getBoolean("firstTime", false)) {
+            // <---- run your one time code here
+            for (int i = 1; i < 5; i++) {
+                q = "INSERT INTO VILLAINS(name,attack,hitPoints) VALUES(?,?,?);";
+                db.execSQL(q, new Object[]{"Villain      " + i, 1, 5});
             }
+            // mark first time has ran.
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putBoolean("firstTime", true);
+            editor.commit();
+        }
+
 
         while (c.moveToNext()) {
                 Integer id = c.getInt(c.getColumnIndex("ID"));
