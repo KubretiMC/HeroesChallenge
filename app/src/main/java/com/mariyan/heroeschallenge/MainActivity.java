@@ -129,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 q = "INSERT INTO VILLAINS(name,attack,hitPoints) VALUES(?,?,?);";
                 db.execSQL(q, new Object[]{"Villain      " + i, 1, 5});
             }
-            // mark first time has ran.
+            // marking first time has ran.
             SharedPreferences.Editor editor = prefs.edit();
             editor.putBoolean("firstTime", true);
             editor.commit();
