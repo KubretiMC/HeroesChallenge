@@ -72,8 +72,8 @@ public class ChooseEnemyActivity extends AppCompatActivity {
         ArrayList<String> listResults = new ArrayList<>();
 
         for(int i = 0; i<Villain.list.size(); i++) {
-            listResults.add(Villain.list.get(i).getName()+ " " + Villain.list.get(i).getAttack()+ "                         "
-                    + Villain.list.get(i).getHitPoints() +"                        "+ (i+1));
+            listResults.add(Villain.list.get(i).getName()+ "               " + Villain.list.get(i).getAttack()+ "                         "
+                    + Villain.list.get(i).getHitPoints() +"                       "+ (i+1));
         }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 getApplicationContext(),

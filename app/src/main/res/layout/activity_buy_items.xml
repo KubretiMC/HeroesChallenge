@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HeroActivity">
+
+
+    <TableLayout android:layout_height="match_parent" android:layout_width="match_parent">
+        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+            <Button
+                android:id="@+id/helmetsButton"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/helmets"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+        </TableRow>
+
+        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+            <Button
+                android:id="@+id/shoulderButton"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/shoulders"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+        </TableRow>
+
+        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+            <Button
+                android:id="@+id/handsButton"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/hands"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+        </TableRow>
+        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+            <Button
+                android:id="@+id/legsButton"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/legs"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+        </TableRow>
+        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+            <Button
+                android:id="@+id/chestButton"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/chest"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+        </TableRow>
+        <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+            <Button
+                android:id="@+id/bootsButton"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/boots"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+        </TableRow>
+    </TableLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

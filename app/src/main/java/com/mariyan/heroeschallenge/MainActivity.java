@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void TakeHeroesFromSQL() {
-        String q="";
+            String q="";
 
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "geroiOpit1.db", null);
             createTableIfNotExistsHeroes(q,db);
@@ -117,14 +117,13 @@ public class MainActivity extends AppCompatActivity {
                 Hero.list.add(hero);
             }
 
+            
             q = "SELECT * FROM VILLAINS";
             c = db.rawQuery(q, null);
-        //            for(int i=1;i<5;i++) {
-  //            q = "INSERT INTO VILLAINS(name,attack,hitPoints) VALUES(?,?,?);";
-//          db.execSQL(q, new Object[]{"Blago Kucheto", 1, 5});
-    //     db.execSQL(q, new Object[]{"John Cena       ", 4, 10});
-      //  db.execSQL(q, new Object[]{"Krisko               ", 1, 1});
-//            }
+                    for(int i=1;i<5;i++) {
+              q = "INSERT INTO VILLAINS(name,attack,hitPoints) VALUES(?,?,?);";
+          db.execSQL(q, new Object[]{"Villain      "+i, 1, 5});
+            }
 
         while (c.moveToNext()) {
                 Integer id = c.getInt(c.getColumnIndex("ID"));
@@ -172,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     {
         q = "CREATE TABLE if not exists Villains(";
         q += "ID integer primary key AUTOINCREMENT, ";
-        q += "name text unique not null, ";
+        q += "name text not null, ";
         q += "attack integer not null, ";
         q += "hitPoints integer not null);";
         db.execSQL(q);

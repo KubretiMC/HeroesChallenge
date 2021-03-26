@@ -54,7 +54,6 @@ public class ChooseHeroActivity extends AppCompatActivity {
                             .build();
                     notify.flags |= Notification.FLAG_AUTO_CANCEL;
                 } else {
-
                     openHeroActivity();
                 }
             }

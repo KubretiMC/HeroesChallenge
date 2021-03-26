@@ -15,5 +15,13 @@
     <string name="confirm">CONFIRM</string>
     <string name="plus">+</string>
     <string name="points">Points</string>
-    <string name="choose_enemy">Choose Enemy</string>;
+    <string name="choose_enemy">Choose Enemy</string>
+    <string name="buy_item">Buy item</string>
+    <string name="choose_talent">Choose talent</string>
+    <string name="boots">boots</string>
+    <string name="chest">chest</string>
+    <string name="legs">legs</string>
+    <string name="hands">hands</string>
+    <string name="shoulders">shoulders</string>
+    <string name="helmets">helmets</string>;
 </resources>
